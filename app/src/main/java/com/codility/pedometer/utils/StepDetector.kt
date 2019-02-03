@@ -65,7 +65,7 @@ class StepDetector {
         velRing[velRingCounter % VEL_RING_SIZE] = currentZ
 
         val velocityEstimate = SensorFilter().sum(velRing)
-        Log.e("Cnesor_event", "changeed  here =" + timeNs)
+        //Log.e("Cnesor_event", "changeed  here =" + timeNs)
 
 
         if (velocityEstimate > STEP_THRESHOLD && oldVelocityEstimate <= STEP_THRESHOLD

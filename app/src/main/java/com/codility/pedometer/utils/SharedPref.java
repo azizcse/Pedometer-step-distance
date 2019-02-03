@@ -36,7 +36,7 @@ public class SharedPref {
     }
 
     public static SharedPref on(Context context) {
-        preferences = context.getSharedPreferences(PREFERENCE_NAME,Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
+        preferences = context.getSharedPreferences(PREFERENCE_NAME,Context.MODE_MULTI_PROCESS);
         if (sharedPref == null) {
             sharedPref = new SharedPref();
         }
