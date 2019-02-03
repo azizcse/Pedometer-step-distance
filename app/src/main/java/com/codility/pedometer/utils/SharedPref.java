@@ -32,18 +32,19 @@ public class SharedPref {
     private static SharedPreferences preferences;
     private static SharedPref sharedPref;
 
-    private SharedPref() {
+    private SharedPref(Context context) {
+
     }
 
     public static SharedPref on(Context context) {
-        preferences = context.getSharedPreferences(PREFERENCE_NAME,Context.MODE_MULTI_PROCESS);
+        preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_MULTI_PROCESS);
         if (sharedPref == null) {
-            sharedPref = new SharedPref();
+            sharedPref = new SharedPref(context);
         }
         return sharedPref;
     }
 
-    public static boolean write(String key, String value) {
+    public boolean write(String key, String value) {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString(key, value);
@@ -51,7 +52,7 @@ public class SharedPref {
         return editor.commit();
     }
 
-    public static boolean write(String key, boolean value) {
+    public boolean write(String key, boolean value) {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(key, value);
@@ -59,45 +60,46 @@ public class SharedPref {
         return editor.commit();
     }
 
-    public static boolean write(String key, int value) {
+    public boolean write(String key, int value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(key, value);
         return editor.commit();
     }
 
-    public static boolean write(String key, float value) {
+    public boolean write(String key, float value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putFloat(key, value);
         return editor.commit();
     }
 
-    public static boolean write(String key, long value) {
+    public boolean write(String key, long value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putLong(key, value);
         return editor.commit();
     }
 
 
-    public static String read(String key) {
+    public String read(String key) {
         return preferences.getString(key, "");
     }
 
-    public static String read(String key, String defaultValue) {
+    public String read(String key, String defaultValue) {
         return preferences.getString(key, defaultValue);
     }
 
-    public static long readLong(String key) {
+    public long readLong(String key) {
         return preferences.getLong(key, 0);
     }
-    public static float readFloat(String key) {
+
+    public float readFloat(String key) {
         return preferences.getFloat(key, 0.0f);
     }
 
-    public static int readInt(String key) {
+    public int readInt(String key) {
         return preferences.getInt(key, 0);
     }
 
-    public static boolean readBoolean(String key) {
+    public boolean readBoolean(String key) {
         return preferences.getBoolean(key, false);
     }
 
@@ -105,22 +107,22 @@ public class SharedPref {
         return preferences.getBoolean(key, true);
     }
 
-    public static boolean readBooleanDefaultTrue(String key) {
+    public boolean readBooleanDefaultTrue(String key) {
         return preferences.getBoolean(key, true);
     }
 
-    public static boolean contains(String key) {
+    public boolean contains(String key) {
         return preferences.contains(key);
     }
 
     /**
      * Remove all saved shared Preference data of app.
      */
-    public static void removeAllPreferenceData() {
+    public void removeAllPreferenceData() {
         preferences.edit().clear().apply();
     }
 
-    public static void removeSpecificItem(String key) {
+    public void removeSpecificItem(String key) {
         preferences.edit().remove(key).apply();
     }
 

@@ -56,8 +56,8 @@ public class StepsDistanceActivity extends AppCompatActivity {
     }
 
     private void showCurrentValue(){
-        long steps = SharedPref.readLong(Constant.KEY_STEP_COUNT);
-        float distance = SharedPref.readFloat(Constant.KEY_DISTANCE);
+        long steps = SharedPref.on(this).readLong(Constant.KEY_STEP_COUNT);
+        float distance = SharedPref.on(this).readFloat(Constant.KEY_DISTANCE);
         textView.setText( TEXT_NUM_STEPS+ steps +" \nDistance ="+(distance / 1000)+" km");
     }
 

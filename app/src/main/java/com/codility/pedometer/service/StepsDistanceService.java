@@ -82,7 +82,7 @@ public class StepsDistanceService extends Service implements SensorEventListener
 
 
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        simpleStepDetector = new StepDetector();
+        simpleStepDetector = new StepDetector(this);
         simpleStepDetector.registerListener(this);
 
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),

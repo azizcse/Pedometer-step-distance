@@ -1,5 +1,6 @@
 package com.codility.pedometer.utils
 
+import android.content.Context
 import android.util.Log
 import com.codility.pedometer.listener.StepListener
 import java.text.SimpleDateFormat
@@ -30,8 +31,11 @@ class StepDetector {
     private var stepsCount: Long = 0
     private var listener: StepListener? = null
     var dateFormat = SimpleDateFormat("yyyy-MM-dd")
+    private var context : Context
 
-
+    constructor(context : Context){
+       this.context =  context;
+    }
 
     fun registerListener(listener: StepListener) {
         this.listener = listener
@@ -72,23 +76,24 @@ class StepDetector {
                 && timeNs - lastStepTimeNs > STEP_DELAY_NS) {
 
 
-            var todayStepCount = SharedPref.readLong(Constant.KEY_STEP_COUNT)
-            var date = SharedPref.read(Constant.KEY_DATE)
+            var todayStepCount = SharedPref.on(context).readLong(Constant.KEY_STEP_COUNT)
+            var date = SharedPref.on(context).read(Constant.KEY_DATE)
 
             var todayDateString = dateFormat.format(Date(System.currentTimeMillis()))
 
             if (date.equals(todayDateString)) {
+
                 todayStepCount = todayStepCount + 1L
             } else {
                 todayStepCount = 1L
             }
-            SharedPref.write(Constant.KEY_STEP_COUNT, todayStepCount)
+            SharedPref.on(context).write(Constant.KEY_STEP_COUNT, todayStepCount)
 
-            SharedPref.write(Constant.KEY_DATE, todayDateString)
+            SharedPref.on(context).write(Constant.KEY_DATE, todayDateString)
 
             val distance = todayStepCount * STEP2METERS //Distance in meter
 
-            SharedPref.write(Constant.KEY_DISTANCE,distance)
+            SharedPref.on(context).write(Constant.KEY_DISTANCE,distance)
 
             listener!!.onStepAndDistance(todayStepCount, distance)
 
